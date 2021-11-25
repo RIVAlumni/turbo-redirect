@@ -1,0 +1,35 @@
+{
+  "name": "turbo-redirect",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "tap \"test/**/*.test.js\"",
+    "start": "fastify start -l info app.js",
+    "dev": "fastify start -w -l info -P app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RIVAlumni/turbo-redirect.git"
+  },
+  "keywords": [],
+  "author": "Aaron Teo <aaron.teo@riv-alumni.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RIVAlumni/turbo-redirect/issues"
+  },
+  "homepage": "https://github.com/RIVAlumni/turbo-redirect#readme",
+  "dependencies": {
+    "fastify": "^3.0.0",
+    "fastify-plugin": "^3.0.0",
+    "fastify-autoload": "^3.3.1",
+    "fastify-sensible": "^3.1.0",
+    "fastify-cli": "^2.13.0"
+  },
+  "devDependencies": {
+    "tap": "^15.0.9"
+  }
+}

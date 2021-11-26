@@ -23,13 +23,7 @@
   },
   "homepage": "https://github.com/RIVAlumni/turbo-redirect#readme",
   "dependencies": {
-    "fastify": "^3.0.0",
-    "fastify-plugin": "^3.0.0",
-    "fastify-autoload": "^3.3.1",
-    "fastify-sensible": "^3.1.0",
-    "fastify-cli": "^2.13.0"
+    "fastify": "^3.0.0"
   },
-  "devDependencies": {
-    "tap": "^15.0.9"
-  }
+  "devDependencies": {}
 }

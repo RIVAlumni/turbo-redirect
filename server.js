@@ -1,5 +1,4 @@
-// const Fastify = require('fastify');
-import Fastify from 'fastify';
+const Fastify = require('fastify');
 const redirects = require('./redirects.json');
 
 const ROOT_DOMAIN = 'riv-alumni.com';

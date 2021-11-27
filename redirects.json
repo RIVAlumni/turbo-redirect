@@ -1,8 +1,6 @@
 {
-  "redirects": [
-    {
-      "domain": "discord.riv-alumni.com",
-      "redirect": "https://discord.gg/smbkws58Ft"
-    }
-  ]
+  "discord": {
+    "enabled": true,
+    "linkTo": "https://discord.gg/smbkws58Ft"
+  }
 }

@@ -1,15 +1,19 @@
-const Fastify = require("fastify");
+import Fastify from "fastify";
+// const Fastify = require("fastify");
 
 // import redirects from "./redirects.json";
-
 const ROOT_DOMAIN = "riv.alumni.com";
 
 function build() {
   const fast = Fastify({ http2: true, logger: true, trustProxy: true });
 
   fast.get("/", (req, res) => {
-    if (!req.hostname.includes(ROOT_DOMAIN)) return res.send(403);
-    return res.send(req.hostname);
+    // if (!req.hostname.includes(ROOT_DOMAIN)) return res.send(403);
+    return res.send(
+      `Hostname: ${req.hostname} || Authority: ${
+        req.headers[":authority"]
+      } || riv.alumni check: ${req.hostname.includes(ROOT_DOMAIN)}`
+    );
   });
 
   return fast;

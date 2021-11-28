@@ -2,6 +2,7 @@ substitutions:
   _PLATFORM: managed
   _SERVICE_NAME: turboredirect
   _DEPLOY_REGION: asia-southeast1
+  _TRIGGER_ID: 1a4d5615-5bf5-4304-b4ff-b4fd1b9050fe
 
 options:
   substitutionOption: ALLOW_LOOSE
@@ -45,6 +46,7 @@ steps:
         '--allow-unauthenticated',
         '--region=$_DEPLOY_REGION',
         '--image=$_DEPLOY_REGION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA',
+        '--labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-trigger-id=$_TRIGGER_ID'
         '--quiet',
       ]
 

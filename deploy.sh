@@ -2,7 +2,7 @@ export GCP_REGION="asia-southeast1"
 export PROJECT_NAME="turboredirect"
 export PROJECT_ID=$(gcloud config get-value project)
 
-export IMAGE_NAME="server-service"
+export IMAGE_NAME="http2-server"
 export IMAGE_TAG="latest"
 
 gcloud services enable \

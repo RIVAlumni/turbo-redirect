@@ -3,7 +3,7 @@ export PROJECT_NAME="turboredirect"
 export PROJECT_ID=$(gcloud config get-value project)
 
 export IMAGE_NAME="server-service"
-export IMAGE_TAG="1.0.0"
+export IMAGE_TAG="latest"
 
 gcloud services enable \
   run.googleapis.com \
@@ -16,10 +16,16 @@ gcloud config set artifact/location $GCP_REGION
 
 gcloud builds submit --tag ${GCP_REGION}-docker.pkg.dev/${PROJECT_ID}/${PROJECT_NAME}/${IMAGE_NAME}:${IMAGE_TAG}
 gcloud run deploy $PROJECT_NAME \
+  --cpu 2 \
+  --memory 1024Mi \
   --platform managed \
-  --region $GCP_REGION \
-  --allow-unauthenticated \
+  --concurrency 1000 \
+  --min-instances 0 \
+  --max-instances 2 \
+  --timeout 60 \
   --use-http2 \
+  --allow-unauthenticated \
+  --region $GCP_REGION \
   --image ${GCP_REGION}-docker.pkg.dev/${PROJECT_ID}/${PROJECT_NAME}/${IMAGE_NAME}:${IMAGE_TAG}
 
 gcloud run services list \

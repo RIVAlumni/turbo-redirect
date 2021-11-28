@@ -1,0 +1,58 @@
+substitutions:
+  _PLATFORM: managed
+  _SERVICE_NAME: turboredirect
+  _DEPLOY_REGION: asia-southeast1
+
+options:
+  substitutionOption: ALLOW_LOOSE
+
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    id: Build
+    args:
+      [
+        'build',
+        '--no-cache',
+        '-t',
+        '$_DEPLOY_REGION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA',
+        '.',
+        '-f',
+        'Dockerfile',
+      ]
+  - name: 'gcr.io/cloud-builders/docker'
+    id: Push
+    args:
+      [
+        'push',
+        '$_DEPLOY_REGION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA',
+      ]
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+    id: Deploy
+    entrypoint: 'gcloud'
+    args:
+      [
+        'run',
+        'deploy',
+        '$_SERVICE_NAME',
+        '--cpu=2',
+        '--memory=1024Mi',
+        '--platform=$_PLATFORM',
+        '--concurrency=1000',
+        '--min-instances=0',
+        '--max-instances=2',
+        '--timeout=60',
+        '--use-http2',
+        '--allow-unauthenticated',
+        '--region=$_DEPLOY_REGION',
+        '--image=$_DEPLOY_REGION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA',
+        '--quiet',
+      ]
+
+images:
+  - '$_DEPLOY_REGION-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
+
+tags:
+  - turboredirect
+  - built-by-rivalumni-devops
+  - gcp-cloud-build-deploy-cloud-run
+  - gcp-cloud-build-deploy-cloud-run-managed
